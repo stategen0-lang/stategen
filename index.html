@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>StateGen — CRM for real estate agencies</title>
 <meta name="description" content="StateGen is the CRM built for real estate agencies. Client-property matching, a visual deal pipeline, and automated WhatsApp reminders in one place.">
 
@@ -66,7 +68,7 @@
 
   /* ============ BASE ============ */
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; max-width: 100%; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
@@ -209,8 +211,8 @@
   @keyframes pop { to { opacity: 1; transform: none; } }
   .bubble.them { background: var(--surface); border: 1px solid var(--line); color: var(--ink-soft); border-bottom-left-radius: 4px; }
   .bubble.me { background: #d9f2df; color: #0f3d24; margin-left: auto; border-bottom-right-radius: 4px; }
-  :root[data-theme="dark"] .bubble.me { background: #1c4a33; color: #b9ecc9; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .bubble.me { background: #1c4a33; color: #b9ecc9; } }
+  :root[data-theme="dark"] .bubble.me { background: #2f5c90; color: #eaf3fd; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .bubble.me { background: #2f5c90; color: #eaf3fd; } }
   .bubble small { display: block; font-size: 10.5px; opacity: 0.6; margin-top: 3px; }
   .chat-verdict { text-align: center; margin-top: 8px; font-size: 12.5px; font-weight: 700; font-family: var(--font-mono); opacity: 0; animation: pop 0.35s ease forwards; }
   .chat-verdict.lost { color: var(--hot); }
@@ -371,6 +373,17 @@
   .feat.open .f-more { grid-template-rows: 1fr; }
   .feat .f-more-inner { overflow: hidden; }
   .feat .f-more p { font-size: 13.5px; color: var(--ink-soft); padding-top: 14px; margin-top: 14px; border-top: 1px solid var(--line-soft); }
+  /* "also included" compact grid */
+  .also-wrap { margin-top: 40px; padding-top: 34px; border-top: 1px solid var(--line); }
+  .also-title { text-align: center; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); font-weight: 600; margin: 0 0 26px; }
+  .also-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .also { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line-soft); background: var(--ground); transition: border-color 0.2s, transform 0.2s; }
+  .also:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .also .a-ic { flex: none; width: 36px; height: 36px; border-radius: 9px; background: var(--accent-soft); color: var(--accent-deep); display: grid; place-items: center; }
+  .also b { display: block; color: var(--ink); font-size: 14.5px; font-weight: 600; }
+  .also span { display: block; color: var(--ink-mute); font-size: 12.5px; margin-top: 2px; line-height: 1.4; }
+  @media (max-width: 780px) { .also-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .also-grid { grid-template-columns: 1fr; } }
 
   /* ============ HOW ============ */
   .how { background: var(--ground); }
@@ -403,15 +416,20 @@
   .plan-sizer .ps-scale { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); margin-top: 8px; }
   .plan-sizer .ps-rec { margin-top: 18px; font-size: 14px; color: var(--ink-soft); }
   .plan-sizer .ps-rec b { color: var(--accent-deep); }
-  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .plan { padding: 28px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); position: relative; display: flex; flex-direction: column; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+  .plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 1040px) { .plan-grid { grid-template-columns: 1fr 1fr; } }
+  .plan { padding: 22px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); position: relative; display: flex; flex-direction: column; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
   .plan.rec { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-4px); }
   .plan .p-flag { position: absolute; top: -11px; left: 28px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: #fff; background: var(--accent-deep); padding: 4px 12px; border-radius: 100px; opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
   .plan.rec .p-flag { opacity: 1; transform: none; }
   .plan h3 { font-size: 21px; }
-  .plan .p-for { font-size: 14px; color: var(--ink-mute); margin: 8px 0 18px; }
-  .plan .p-price { font-family: var(--font-mono); font-size: 15px; color: var(--ink); font-weight: 600; padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--line-soft); }
-  .plan .p-price small { color: var(--ink-mute); font-weight: 400; }
+  .plan .p-for { font-size: 13px; color: var(--ink-mute); margin: 8px 0 16px; min-height: 34px; }
+  .plan .p-price { font-family: var(--font-mono); color: var(--ink); font-weight: 700; }
+  .plan .p-price .amt { font-size: 29px; letter-spacing: -0.02em; }
+  .plan .p-price small { color: var(--ink-mute); font-weight: 500; font-size: 13px; }
+  .plan .p-alt { margin: 9px 0 18px; padding-bottom: 18px; border-bottom: 1px solid var(--line-soft); font-size: 12px; color: var(--ink-mute); line-height: 1.7; }
+  .plan .p-alt b { color: var(--ink-soft); font-weight: 700; font-family: var(--font-mono); }
+  .plan li { font-size: 13.5px; }
   .plan ul { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 11px; flex: 1; }
   .plan li { font-size: 14px; display: flex; gap: 10px; align-items: flex-start; }
   .plan li svg { color: var(--accent); flex: none; margin-top: 3px; }
@@ -454,6 +472,53 @@
     body.cursor-on .cursor-dot, body.cursor-on .cursor-ring { opacity: 1; }
   }
 
+  /* ===== Instagram contact additions ===== */
+  .contact { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 1000px; margin: 0 auto; }
+  .contact-card { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; padding: 30px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--ground); text-decoration: none; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; }
+  .contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .contact-card .cc-ic { width: 54px; height: 54px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 6px; }
+  .contact-card.wa:hover { border-color: #25d366; }
+  .contact-card.wa .cc-ic { background: rgba(37,211,102,0.14); color: #1da851; }
+  .contact-card.em:hover { border-color: var(--accent); }
+  .contact-card.em .cc-ic { background: var(--accent-soft); color: var(--accent-deep); }
+  .contact-card h3 { font-size: 20px; }
+  .contact-card p { font-size: 14.5px; color: var(--ink-mute); }
+  .contact-card .cc-val { font-family: var(--font-mono); font-size: 14px; color: var(--ink); font-weight: 600; margin-top: 2px; }
+  .contact-card .cc-cta { margin-top: 10px; font-weight: 700; font-size: 14px; }
+  .contact-card.wa .cc-cta { color: #1da851; }
+  .contact-card.em .cc-cta { color: var(--accent-deep); }
+
+  /* sticky always-on contact bar */
+  .contact-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: var(--hero-2); border-top: 1px solid var(--hero-line); box-shadow: 0 -6px 24px -8px rgba(6,15,34,0.5); transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden; will-change: transform; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .cb-inner { max-width: var(--maxw); margin: 0 auto; padding: 11px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .cb-text { color: var(--hero-ink); font-weight: 600; font-size: 15px; }
+  .cb-text b { color: #4fd18a; font-weight: 700; }
+  .cb-btn { display: inline-flex; align-items: center; gap: 9px; background: #25d366; color: #06351c; font-weight: 700; font-size: 15px; padding: 12px 22px; border-radius: 11px; white-space: nowrap; text-decoration: none; box-shadow: 0 6px 18px -6px rgba(37,211,102,0.6); transition: transform 0.15s, box-shadow 0.2s, background 0.2s; }
+  .cb-btn:hover { background: #22c15e; box-shadow: 0 10px 24px -8px rgba(37,211,102,0.7); }
+  .cb-btn:active { transform: translateY(1px); }
+  .cb-choose { position: relative; }
+  .cb-btn .cb-chev { transition: transform 0.2s; }
+  .cb-btn[aria-expanded="true"] .cb-chev { transform: rotate(180deg); }
+  .cb-menu { position: absolute; right: 0; bottom: calc(100% + 12px); min-width: 272px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-lg); padding: 6px; display: flex; flex-direction: column; gap: 2px; opacity: 0; transform: translateY(10px) scale(0.98); transform-origin: bottom right; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.22,1,0.36,1); z-index: 61; }
+  .cb-menu.open { opacity: 1; transform: none; pointer-events: auto; }
+  .cb-menu a { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; color: var(--ink); text-decoration: none; transition: background 0.15s; }
+  .cb-menu a:hover { background: var(--surface-2); }
+  .cb-menu .mi-ic { flex: none; width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; }
+  .cb-menu .mi-ic.wa { background: rgba(37,211,102,0.14); color: #1da851; }
+  .cb-menu .mi-ic.em { background: var(--accent-soft); color: var(--accent-deep); }
+  .cb-menu .mi-tx { display: flex; flex-direction: column; line-height: 1.25; }
+  .cb-menu .mi-tx b { font-size: 14.5px; font-weight: 700; color: var(--ink); }
+  .cb-menu .mi-tx small { font-family: var(--font-mono); font-size: 12px; color: var(--ink-mute); }
+  @media (max-width: 640px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .cb-text { display: none; }
+    .cb-inner { justify-content: center; padding: 10px 16px; }
+    .cb-btn { width: 100%; justify-content: center; font-size: 16px; padding: 14px 22px; }
+    .cb-choose { width: 100%; }
+    .cb-menu { left: 0; right: 0; min-width: 0; }
+  }
+
   /* responsive */
   @media (max-width: 940px) {
     .hero-grid { grid-template-columns: 1fr; gap: 44px; padding: 58px 0 70px; }
@@ -470,6 +535,43 @@
     .tabs { width: 100%; }
     .foot-inner { flex-direction: column; }
     .ctrl-row { grid-template-columns: 1fr; }
+
+    /* bigger, easier-to-tap UI on phones (no zooming needed) */
+    .tab { font-size: 15px; padding: 11px 15px; flex: 1; justify-content: center; }
+    .panel { padding: 16px; }
+    .band-head p { font-size: 16px; }
+    .band-head h2 { font-size: 30px; }
+    /* pipeline: wide columns so you clearly swipe one at a time, big cards */
+    .kanban { grid-auto-flow: column; grid-auto-columns: 80%; gap: 12px; scroll-snap-type: x mandatory; }
+    .kb-col { scroll-snap-align: start; min-height: 200px; }
+    .kb-col h6 { font-size: 12px; }
+    .deal { padding: 13px; }
+    .deal .d-top { font-size: 15px; }
+    .deal .d-sub { font-size: 13px; }
+    .deal .d-val { font-size: 14px; }
+    .kanban-hint { font-size: 14px; }
+    /* stats */
+    .stat { padding: 15px; }
+    .stat .s-val { font-size: 25px; }
+    .stat .s-lbl { font-size: 11px; }
+    /* matching */
+    .ms-res { padding: 14px; }
+    .ms-res .r-t { font-size: 15px; }
+    .ms-res .r-m { font-size: 12.5px; }
+    .ms-res .r-s { font-size: 22px; }
+    .ms-client h5 { font-size: 17px; }
+    /* calendar: taller cells, readable */
+    .cal { gap: 4px; }
+    .cal .day { min-height: 54px; padding: 5px; }
+    .cal .day .dn { font-size: 12px; }
+    .cal-ev { font-size: 14px; }
+    /* features + contact cards */
+    .feat { padding: 22px; }
+    .feat h3 { font-size: 18px; }
+    .feat > p { font-size: 15px; }
+    .contact-card { padding: 24px; }
+    .contact-card h3 { font-size: 19px; }
+    .contact-card p { font-size: 15px; }
   }
 </style>
 
@@ -693,6 +795,21 @@
       <p>Not a generic CRM bent to fit real estate. Every feature is shaped by the way a property team works.</p>
     </div>
     <div class="feat-grid" id="featGrid"></div>
+
+    <div class="also-wrap reveal">
+      <h4 class="also-title">Also included in every plan</h4>
+      <div class="also-grid">
+        <div class="also"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7M12 3v12M8 11l4 4 4-4"/></svg></span><div><b>Offers tracking</b><span>Log and compare offers on every deal.</span></div></div>
+        <div class="also"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M9 13h6M9 17h4"/></svg></span><div><b>Documents &amp; proofs</b><span>Attach contracts and down-payment proofs.</span></div></div>
+        <div class="also"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="m17 9 4-2v10l-4-2"/></svg></span><div><b>Property video</b><span>Add video walkthroughs to any listing.</span></div></div>
+        <div class="also"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></span><div><b>Activity feed</b><span>See who did what, and when, across the team.</span></div></div>
+        <div class="also"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM19 8v6M22 11h-6"/></svg></span><div><b>Team invites</b><span>Bring agents on board with a secure link.</span></div></div>
+        <div class="also"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M8 7l4-4 4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span><div><b>Data export</b><span>Export clients, listings and deals anytime.</span></div></div>
+        <div class="also"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M7 15h4"/></svg></span><div><b>Invoicing</b><span>Generate invoices straight from the app.</span></div></div>
+        <div class="also"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></span><div><b>Built-in security</b><span>Rate-limited logins, admin PIN, failed-login alerts.</span></div></div>
+        <div class="also"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span><div><b>Made for mobile</b><span>Swipe navigation — works like an app on any phone.</span></div></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -746,18 +863,14 @@
 <!-- ============ PLANS ============ -->
 <section class="band plans" id="plans">
   <div class="wrap">
-    <div class="band-head center reveal"><span class="eyebrow">Plans</span><h2>Priced for the size of your agency.</h2><p>Slide to your team size — we'll point you to the right tier. Pricing is set with you directly.</p></div>
+    <div class="band-head center reveal"><span class="eyebrow">Plans</span><h2>Priced for the size of your agency.</h2><p>Slide to your team size and we’ll highlight the tier that fits. Longer plans save you whole months.</p></div>
     <div class="plan-sizer reveal d1">
-      <div class="ps-q">My agency has <b id="agentCount">8</b> agents</div>
-      <input type="range" id="sizeSlider" min="1" max="60" value="8" aria-label="Number of agents">
-      <div class="ps-scale"><span>1</span><span>15</span><span>30</span><span>45</span><span>60+</span></div>
+      <div class="ps-q">My agency has <b id="agentCount">15</b> agents</div>
+      <input type="range" id="sizeSlider" min="1" max="70" value="15" aria-label="Number of agents">
+      <div class="ps-scale"><span>1</span><span>10</span><span>30</span><span>60+</span></div>
       <div class="ps-rec">Recommended: <b id="recPlan">Business</b></div>
     </div>
-    <div class="plan-grid">
-      <div class="plan" data-plan="Team"><h3>Team</h3><p class="p-for">Small &amp; boutique agencies</p><div class="p-price">Custom <small>/ talk to us</small></div><ul><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full CRM &amp; matching engine</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Pipeline, calendar &amp; alerts</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> WhatsApp reminders</li></ul><a class="btn btn-ghost" href="https://stategenapp.vercel.app/signup/company" target="_blank" rel="noopener">Register</a></div>
-      <div class="plan" data-plan="Business"><span class="p-flag">Recommended</span><h3>Business</h3><p class="p-for">Most agencies start here</p><div class="p-price">Custom <small>/ talk to us</small></div><ul><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Team</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> More agents &amp; listings</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full analytics &amp; role controls</li></ul><a class="btn btn-primary" href="https://stategenapp.vercel.app/signup/company" target="_blank" rel="noopener">Register your agency</a></div>
-      <div class="plan" data-plan="Unlimited"><h3>Unlimited</h3><p class="p-for">Large &amp; multi-branch firms</p><div class="p-price">Custom <small>/ talk to us</small></div><ul><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Business</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Unlimited agents &amp; listings</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority activation &amp; support</li></ul><a class="btn btn-ghost" href="https://stategenapp.vercel.app/signup/company" target="_blank" rel="noopener">Register</a></div>
-    </div>
+    <div class="plan-grid"><div class="plan" data-plan="Team"><span class="p-flag">Recommended</span><h3>Team</h3><p class="p-for">0–9 agents · small &amp; boutique agencies</p><div class="p-price"><span class="amt">$200</span> <small>/ month</small></div><div class="p-alt">6 months — <b>$1,000</b><br>Yearly — <b>$2,000</b></div><ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full CRM: clients, properties &amp; smart matching</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Visual deal pipeline</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> WhatsApp follow-up reminders</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Shared team calendar</li></ul><a class="btn btn-ghost" href="https://stategenapp.vercel.app/signup/company" target="_blank" rel="noopener">Register</a></div><div class="plan" data-plan="Business"><span class="p-flag">Recommended</span><h3>Business</h3><p class="p-for">10–29 agents · most agencies start here</p><div class="p-price"><span class="amt">$350</span> <small>/ month</small></div><div class="p-alt">6 months — <b>1 month free</b> ($1,750)<br>Yearly — <b>2 months free</b> ($3,500)</div><ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Team</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> AI listing descriptions</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Shareable listing pages that capture leads</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Bulk import &amp; listing alerts</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full analytics &amp; reports</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Role-based access</li></ul><a class="btn btn-primary" href="https://stategenapp.vercel.app/signup/company" target="_blank" rel="noopener">Register your agency</a></div><div class="plan" data-plan="Company"><span class="p-flag">Recommended</span><h3>Company</h3><p class="p-for">30–59 agents · growing, multi-team agencies</p><div class="p-price"><span class="amt">$450</span> <small>/ month</small></div><div class="p-alt">6 months — <b>1 month free</b> ($2,250)<br>Yearly — <b>2 months free</b> ($4,500)</div><ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Business</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Multi-branch ready</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Offers tracking &amp; invoicing</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Documents &amp; video on every listing</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Activity feed &amp; full audit trail</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority activation &amp; support</li></ul><a class="btn btn-ghost" href="https://stategenapp.vercel.app/signup/company" target="_blank" rel="noopener">Register</a></div><div class="plan" data-plan="Enterprise"><span class="p-flag">Recommended</span><h3>Enterprise</h3><p class="p-for">60+ agents · large &amp; multi-branch firms</p><div class="p-price"><span class="amt">Let’s talk</span></div><div class="p-alt">Custom pricing, tailored to your firm.</div><ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Company</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Unlimited agents &amp; branches</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Dedicated onboarding &amp; training</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Custom setup &amp; integrations</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority support &amp; guidance</li></ul><a class="btn btn-ghost" href="#contact">Talk to us</a></div></div>
   </div>
 </section>
 
@@ -1199,7 +1312,10 @@
     { ic: '<path d="M21 11.5a8.4 8.4 0 0 1-11.9 7.6L3 21l1.9-6A8.4 8.4 0 1 1 21 11.5Z" stroke-linejoin="round"/>', h: "WhatsApp reminders", p: "Trigger a follow-up from the app, or let StateGen fire daily reminders for pending leads automatically. No lead goes cold because someone forgot.", tag: "automated", more: "Agents send a follow-up in one tap, and a daily job sweeps every lead that's due and nudges the agent — so the buyer who messaged at 9pm always gets an answer the next morning." },
     { ic: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8" stroke-linecap="round" stroke-linejoin="round"/>', h: "Clients & listings", p: "Full profiles for buyers, renters and investors — colour-coded by type and status. A full detail view for every property.", tag: "colour-coded", more: "Status at a glance: priority, active, cold, won or lost, each with its own colour. Listings hold price, type, area, bedrooms and status, so any agent can pick up any client without a handover call." },
     { ic: '<path d="M6 9V4h12v5M6 9h12M6 9l-2 6h16l-2-6M9 21v-4h6v4"/>', h: "Listing alerts", p: "When a new property matches a client's preferences, StateGen flags it — so the right buyer hears about the right listing without manual outreach.", tag: "proactive", more: "Add a listing and StateGen checks it against every active client's criteria. The agents with matching buyers get alerted automatically — new stock reaches the right people the moment it lands." },
-    { ic: '<path d="M3 3v18h18M7 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>', h: "Analytics & roles", p: "Live stats on listings, clients, deals and commission — filter by year. Managers see the whole agency; agents see only their own book.", tag: "role-based", more: "Managers get the agency-wide view — every agent, every deal, total commission volume by year. Agents see only what's theirs. Same data, scoped by role, no spreadsheets to reconcile." }
+    { ic: '<path d="M3 3v18h18M7 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>', h: "Analytics & roles", p: "Live stats on listings, clients, deals and commission — filter by year. Managers see the whole agency; agents see only their own book.", tag: "role-based", more: "Managers get the agency-wide view — every agent, every deal, total commission volume by year. Agents see only what's theirs. Same data, scoped by role, no spreadsheets to reconcile." },
+    { ic: '<path d="M12 3v12M8 11l4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke-linecap="round" stroke-linejoin="round"/>', h: "Bulk import", p: "Move your whole book in at once — import clients and properties straight from an Excel or CSV file.", tag: "one-click", more: "StateGen reads messy real-world spreadsheets, maps the columns for you, cleans the data and skips duplicates automatically. Switching from scattered sheets takes minutes, not weeks of retyping." },
+    { ic: '<path d="M12 3l1.7 4.5L18 9l-4.3 1.5L12 15l-1.7-4.5L6 9l4.3-1.5L12 3Z" stroke-linejoin="round"/><path d="M18.5 13.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1Z" stroke-linejoin="round"/>', h: "AI descriptions", p: "Let StateGen write polished listing descriptions for you — enter the specs, get ready-to-post copy.", tag: "AI-powered", more: "Give it the area, type, price and key features and the built-in AI drafts a clean, professional property description in seconds — ready to publish or tweak. No more staring at a blank box." },
+    { ic: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 3.9M15.4 6.6 8.6 10.5" stroke-linecap="round"/>', h: "Shareable listing pages", p: "Turn any listing into a clean public page you can send on WhatsApp or Instagram — and it captures the lead for you.", tag: "lead capture", more: "Share a property with a single link — the viewer needs no login. When they show interest, their details drop straight into your clients list, so a post on social turns into a real lead inside the app." }
   ];
   var featGrid = $("#featGrid");
   featData.forEach(function (f, i) {
@@ -1230,12 +1346,12 @@
   /* ---------- PLANS size slider ---------- */
   var sizeSlider = $("#sizeSlider"), agentCount = $("#agentCount"), recPlan = $("#recPlan");
   function recommend(n) {
-    var plan = n <= 5 ? "Team" : n <= 20 ? "Business" : "Unlimited";
+    var plan = n <= 9 ? "Team" : n <= 29 ? "Business" : n <= 59 ? "Company" : "Enterprise";
     agentCount.textContent = n; recPlan.textContent = plan;
     $$(".plan").forEach(function (p) { p.classList.toggle("rec", p.getAttribute("data-plan") === plan); });
   }
   sizeSlider.addEventListener("input", function () { recommend(parseInt(sizeSlider.value, 10)); });
-  recommend(8);
+  recommend(15);
 
   /* ---------- CUSTOM DOT + RING CURSOR ---------- */
   if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
@@ -1260,6 +1376,18 @@
       cring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
       requestAnimationFrame(loop);
     })();
+  }
+
+  /* ---------- CONTACT BAR NUMBER PICKER ---------- */
+  var cbBtn = $("#cbBtn"), cbMenu = $("#cbMenu");
+  if (cbBtn && cbMenu) {
+    var cbClosing = null;
+    var cbOpen = function () { if (cbClosing) { clearTimeout(cbClosing); cbClosing = null; } cbMenu.hidden = false; requestAnimationFrame(function () { cbMenu.classList.add("open"); }); cbBtn.setAttribute("aria-expanded", "true"); };
+    var cbClose = function () { cbMenu.classList.remove("open"); cbBtn.setAttribute("aria-expanded", "false"); cbClosing = setTimeout(function () { cbMenu.hidden = true; cbClosing = null; }, 220); };
+    cbBtn.addEventListener("click", function (e) { e.stopPropagation(); if (cbMenu.classList.contains("open")) cbClose(); else cbOpen(); });
+    document.addEventListener("click", function (e) { if (cbMenu.classList.contains("open") && !cbMenu.contains(e.target) && !cbBtn.contains(e.target)) cbClose(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && cbMenu.classList.contains("open")) cbClose(); });
+    $$("#cbMenu a").forEach(function (a) { a.addEventListener("click", function () { cbClose(); }); });
   }
 })();
 </script>
