@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chroma28 Studio — Rent the space</title>
+<meta name="description" content="Chroma28 is a rental studio for shoots, podcasts, meetings and workshops. See the space, book a session in a few clicks, or request a quote.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --surface: #ffffff;
+    --surface-2: #f2f0ea;
+    --ink: #16141b;
+    --ink-soft: #4a4655;
+    --ink-mute: #807b8c;
+    --line: #e7e3da;
+    --purple: #7b3fe4;
+    --teal: #1fa9b6;
+    --orange: #f2994a;
+    --red: #e5484d;
+    --green: #33a660;
+    --yellow: #f2c230;
+    --accent: var(--purple);
+    --accent-soft: rgba(123, 63, 228, .1);
+    --spectrum: linear-gradient(90deg, var(--purple), var(--teal), var(--green), var(--yellow), var(--orange), var(--red));
+    --radius: 18px;
+    --shadow: 0 18px 40px -18px rgba(22, 20, 27, .25), 0 2px 8px rgba(22, 20, 27, .05);
+    --font-display: "Space Grotesk", system-ui, sans-serif;
+    --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--font); -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -.02em; line-height: 1.1; margin: 0; }
+  h2 { font-size: clamp(30px, 4.4vw, 46px); }
+  h3 { font-size: 20px; }
+  p { margin: 0; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+  section { padding: 88px 0; scroll-margin-top: 64px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 14px; }
+  .eyebrow::before { content: ""; width: 22px; height: 4px; border-radius: 4px; background: var(--spectrum); }
+  .lead { color: var(--ink-soft); font-size: 18px; max-width: 560px; margin-top: 14px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; cursor: pointer; font: 600 15px var(--font); padding: 14px 22px; border-radius: 999px; text-decoration: none; transition: transform .15s, box-shadow .15s, background .15s; }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { box-shadow: 0 10px 24px -10px rgba(22, 20, 27, .6); }
+  .btn-color { background: var(--purple); color: #fff; }
+  .btn-color:hover { box-shadow: 0 10px 24px -10px rgba(123, 63, 228, .7); }
+  .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .btn-ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .btn[disabled] { opacity: .4; pointer-events: none; }
+
+  /* prototype ribbon */
+  .proto { background: var(--ink); color: #fff; font-size: 13px; text-align: center; padding: 8px 40px; position: relative; }
+  .proto b { background: var(--spectrum); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .proto button { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: 0; color: #fff; font-size: 18px; cursor: pointer; opacity: .7; }
+
+  /* nav */
+  nav.top { position: sticky; top: 0; z-index: 50; background: rgba(251, 250, 247, .86); backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+  nav.top.scrolled { border-color: var(--line); }
+  nav.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 19px var(--font-display); letter-spacing: -.02em; }
+  .brand svg { width: 34px; height: 34px; }
+  .nav-links { display: flex; gap: 28px; font-size: 15px; font-weight: 500; }
+  .nav-links a { text-decoration: none; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { display: flex; gap: 8px; }
+  .nav-cta .btn { padding: 10px 18px; font-size: 14px; }
+  @media (max-width: 860px) { .nav-links { display: none; } .nav-cta .btn-ghost { display: none; } }
+
+  /* hero */
+  .hero { padding: 48px 0 72px; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+  .hero h1 { font-size: clamp(42px, 7vw, 80px); }
+  .hero h1 .spec { background: var(--spectrum); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .lead { font-size: 19px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .hero-stats { display: flex; gap: 32px; margin-top: 40px; flex-wrap: wrap; }
+  .hero-stats div { font-size: 14px; color: var(--ink-mute); }
+  .hero-stats b { display: block; font: 700 26px var(--font-display); color: var(--ink); }
+  .hero-visual { position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow); }
+  .hero-chip { position: absolute; left: 16px; bottom: 16px; right: 16px; background: rgba(255, 255, 255, .92); backdrop-filter: blur(8px); border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; }
+  .hero-chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); display: inline-block; margin-right: 6px; box-shadow: 0 0 0 4px rgba(51, 166, 96, .18); }
+  .hero-chip a { font-weight: 600; color: var(--purple); text-decoration: none; white-space: nowrap; }
+  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; gap: 36px; } .hero-visual { aspect-ratio: 4 / 3.4; } }
+
+  /* photo placeholders: drop real photos into ./img/ and they show up over the gradient */
+  .ph { background-size: cover; background-position: center; position: relative; }
+  .ph-label { position: absolute; top: 12px; left: 12px; font-size: 12px; font-weight: 600; background: rgba(255, 255, 255, .85); padding: 5px 10px; border-radius: 999px; color: var(--ink-soft); }
+  .ph-1 { background-image: url(img/studio-1.jpg), radial-gradient(120% 70% at 50% 100%, #f7f5f0 0 45%, transparent 46%), linear-gradient(160deg, #e9e4ff, #d7f1f3 55%, #fde9d6); }
+  .ph-2 { background-image: url(img/studio-2.jpg), linear-gradient(135deg, #2b1f4d, #7b3fe4 60%, #f2994a); }
+  .ph-3 { background-image: url(img/studio-3.jpg), linear-gradient(200deg, #e2f6ef, #b6e3d0 50%, #f2c230 140%); }
+  .ph-4 { background-image: url(img/studio-4.jpg), linear-gradient(160deg, #fde1e1, #f2994a 120%); }
+  .ph-5 { background-image: url(img/studio-5.jpg), linear-gradient(180deg, #1c1a22, #3b3550); }
+  .ph-6 { background-image: url(img/studio-6.jpg), linear-gradient(140deg, #d8ecff, #e8e0ff 60%, #ffe9f0); }
+
+  /* the space */
+  .space-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+  .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; gap: 14px; }
+  .gallery .ph { border-radius: var(--radius); cursor: zoom-in; transition: transform .25s; }
+  .gallery .ph:hover { transform: scale(1.015); }
+  .gallery .g1 { grid-column: span 2; grid-row: span 2; }
+  .gallery .g4 { grid-column: span 2; }
+  @media (max-width: 860px) { .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; } .gallery .g4 { grid-column: span 2; } }
+  .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; }
+  .spec-item { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; font-size: 14px; color: var(--ink-mute); }
+  .spec-item b { display: block; color: var(--ink); font: 600 17px var(--font-display); margin-bottom: 2px; }
+  @media (max-width: 860px) { .specs { grid-template-columns: repeat(2, 1fr); } }
+
+  /* lightbox */
+  .lightbox { position: fixed; inset: 0; background: rgba(15, 13, 20, .88); display: none; align-items: center; justify-content: center; z-index: 100; padding: 20px; }
+  .lightbox.open { display: flex; }
+  .lightbox .ph { width: min(960px, 100%); aspect-ratio: 16 / 10; border-radius: 20px; }
+  .lightbox button { position: absolute; top: 18px; right: 18px; background: #fff; border: 0; width: 42px; height: 42px; border-radius: 50%; font-size: 20px; cursor: pointer; }
+
+  /* uses */
+  .uses { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .use-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+  .use { border-radius: var(--radius); padding: 24px; background: var(--bg); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+  .use .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; }
+  .use p { color: var(--ink-soft); font-size: 15px; flex: 1; }
+  .use a { font-weight: 600; font-size: 14px; text-decoration: none; color: var(--purple); }
+  @media (max-width: 960px) { .use-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .use-grid { grid-template-columns: 1fr; } }
+
+  /* pricing */
+  .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  .price { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 28px; display: flex; flex-direction: column; gap: 14px; position: relative; }
+  .price.pop { border: 2px solid var(--purple); }
+  .price .tag { position: absolute; top: -12px; left: 24px; background: var(--purple); color: #fff; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+  .price .amt { font: 700 42px var(--font-display); letter-spacing: -.03em; }
+  .price .amt small { font: 500 15px var(--font); color: var(--ink-mute); letter-spacing: 0; }
+  .price ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: 15px; color: var(--ink-soft); flex: 1; }
+  .price li::before { content: "✓"; color: var(--green); font-weight: 700; margin-right: 8px; }
+  .note { font-size: 13px; color: var(--ink-mute); margin-top: 18px; }
+  @media (max-width: 860px) { .price-grid { grid-template-columns: 1fr; } }
+
+  /* booking + quote panels */
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 26px; box-shadow: var(--shadow); overflow: hidden; margin-top: 40px; }
+  .panel-head { display: flex; gap: 6px; padding: 18px 22px; border-bottom: 1px solid var(--line); align-items: center; flex-wrap: wrap; }
+  .step-pill { font-size: 13px; font-weight: 600; color: var(--ink-mute); padding: 6px 12px; border-radius: 999px; background: var(--surface-2); }
+  .step-pill.on { background: var(--ink); color: #fff; }
+  .step-pill.done { background: var(--accent-soft); color: var(--purple); }
+  .panel-body { padding: 26px 22px; }
+  .panel-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 22px; border-top: 1px solid var(--line); background: var(--bg); flex-wrap: wrap; }
+  .panel-foot .sum { font-size: 14px; color: var(--ink-soft); }
+  .panel-foot .sum b { color: var(--ink); font-size: 18px; font-family: var(--font-display); }
+  .step { display: none; }
+  .step.on { display: block; animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .q { font: 600 18px var(--font-display); margin-bottom: 14px; }
+  .q + .q, .field + .q { margin-top: 26px; }
+
+  .choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .choice { text-align: left; background: var(--bg); border: 1.5px solid var(--line); border-radius: 14px; padding: 14px 16px; cursor: pointer; font: inherit; color: inherit; transition: border-color .15s, background .15s; }
+  .choice:hover { border-color: var(--ink-mute); }
+  .choice.on { border-color: var(--purple); background: var(--accent-soft); }
+  .choice b { display: block; font-size: 15px; }
+  .choice span { font-size: 13px; color: var(--ink-mute); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 1.5px solid var(--line); background: var(--bg); border-radius: 999px; padding: 9px 14px; font: 500 14px var(--font); cursor: pointer; color: var(--ink); }
+  .chip.on { border-color: var(--purple); background: var(--accent-soft); color: var(--purple); }
+  .chip[disabled] { text-decoration: line-through; opacity: .35; cursor: not-allowed; }
+
+  .days { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+  .day { flex: 0 0 64px; border: 1.5px solid var(--line); background: var(--bg); border-radius: 14px; padding: 10px 0; text-align: center; cursor: pointer; font: inherit; color: inherit; }
+  .day small { display: block; font-size: 12px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: .05em; }
+  .day b { font: 700 20px var(--font-display); }
+  .day.on { border-color: var(--purple); background: var(--purple); color: #fff; }
+  .day.on small { color: rgba(255, 255, 255, .8); }
+  .stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--line); border-radius: 999px; overflow: hidden; }
+  .stepper button { width: 44px; height: 44px; border: 0; background: var(--bg); font-size: 20px; cursor: pointer; }
+  .stepper output { min-width: 90px; text-align: center; font-weight: 600; }
+
+  .field { display: grid; gap: 6px; }
+  .field label { font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+  .field input, .field textarea, .field select { font: inherit; padding: 13px 14px; border: 1.5px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--ink); width: 100%; }
+  .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--purple); }
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .fields .full { grid-column: 1 / -1; }
+  @media (max-width: 600px) { .fields { grid-template-columns: 1fr; } }
+
+  .done-box { text-align: center; padding: 20px 0 6px; }
+  .done-box .check { width: 64px; height: 64px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-size: 30px; margin: 0 auto 16px; }
+  .done-box h3 { font-size: 26px; }
+  .done-box p { color: var(--ink-soft); margin: 10px auto 0; max-width: 440px; }
+  .recap { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin: 22px auto 0; max-width: 440px; text-align: left; font-size: 14px; display: grid; gap: 6px; }
+  .recap div { display: flex; justify-content: space-between; gap: 12px; }
+  .recap span { color: var(--ink-mute); }
+  .done-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  @media (max-width: 960px) { .two-col { grid-template-columns: 1fr; gap: 0; } }
+  .quote-sec { background: linear-gradient(180deg, var(--bg), #f3eefe); }
+  .estimate { margin-top: 28px; background: var(--ink); color: #fff; border-radius: 22px; padding: 24px; }
+  .estimate small { color: rgba(255, 255, 255, .6); font-size: 13px; }
+  .estimate .big { font: 700 36px var(--font-display); margin: 4px 0 6px; }
+  .estimate ul { margin: 12px 0 0; padding: 0; list-style: none; font-size: 14px; color: rgba(255, 255, 255, .8); display: grid; gap: 6px; }
+  .estimate li { display: flex; justify-content: space-between; }
+  .bar { height: 4px; background: var(--spectrum); border-radius: 4px; margin-top: 18px; }
+  .perks { display: grid; gap: 14px; margin-top: 28px; }
+  .perks div { display: flex; gap: 12px; font-size: 15px; color: var(--ink-soft); }
+  .perks b { color: var(--ink); }
+
+  /* faq */
+  .faq { max-width: 760px; margin: 36px auto 0; }
+  details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+  summary { cursor: pointer; list-style: none; font: 600 17px var(--font-display); display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 22px; line-height: 1; color: var(--ink-mute); transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { color: var(--ink-soft); margin-top: 10px; }
+
+  /* contact */
+  .contact { background: var(--ink); color: #fff; border-radius: 32px; padding: 48px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; position: relative; overflow: hidden; }
+  .contact::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: var(--spectrum); }
+  .contact h2 { color: #fff; }
+  .contact .lead { color: rgba(255, 255, 255, .7); }
+  .contact-list { display: grid; gap: 10px; }
+  .contact-list a, .contact-list div { display: flex; gap: 14px; align-items: center; background: rgba(255, 255, 255, .06); border-radius: 14px; padding: 14px 16px; text-decoration: none; font-size: 15px; }
+  .contact-list a:hover { background: rgba(255, 255, 255, .12); }
+  .contact-list span { color: rgba(255, 255, 255, .55); font-size: 13px; display: block; }
+  .map { margin-top: 24px; border-radius: 18px; height: 160px; background: repeating-linear-gradient(45deg, rgba(255, 255, 255, .05) 0 12px, transparent 12px 24px), #24212c; display: grid; place-items: center; color: rgba(255, 255, 255, .5); font-size: 14px; }
+  @media (max-width: 860px) { .contact { grid-template-columns: 1fr; padding: 32px 22px; } }
+
+  footer { padding: 40px 0 120px; color: var(--ink-mute); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+
+  /* sticky mobile bar */
+  .mbar { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 60; display: none; gap: 8px; background: rgba(255, 255, 255, .95); backdrop-filter: blur(10px); padding: 8px; border-radius: 999px; box-shadow: var(--shadow); border: 1px solid var(--line); padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+  .mbar .btn { flex: 1; padding: 13px; }
+  @media (max-width: 860px) { .mbar { display: flex; } }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="proto" id="proto"><b>Prototype</b> · Sample photos, prices and copy. Real content goes in next. <button aria-label="Dismiss" onclick="this.parentElement.remove()">×</button></div>
+
+<nav class="top" id="nav">
+  <div class="wrap">
+    <a href="#" class="brand" aria-label="Chroma28 Studio home">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#fff" stroke="#e7e3da"/>
+        <path d="M20 20 L20 2 A18 18 0 0 1 35.6 11 Z" fill="#7b3fe4"/>
+        <path d="M20 20 L35.6 11 A18 18 0 0 1 35.6 29 Z" fill="#1fa9b6"/>
+        <path d="M20 20 L35.6 29 A18 18 0 0 1 20 38 Z" fill="#33a660"/>
+        <path d="M20 20 L20 38 A18 18 0 0 1 4.4 29 Z" fill="#f2c230"/>
+        <path d="M20 20 L4.4 29 A18 18 0 0 1 4.4 11 Z" fill="#f2994a"/>
+        <path d="M20 20 L4.4 11 A18 18 0 0 1 20 2 Z" fill="#e5484d"/>
+        <circle cx="20" cy="20" r="11" fill="#fff"/>
+        <text x="20" y="24.5" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="12" fill="#16141b">28</text>
+      </svg>
+      Chroma28
+    </a>
+    <div class="nav-links">
+      <a href="#space">The space</a>
+      <a href="#uses">What it's for</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#quote" class="btn btn-ghost">Get a quote</a>
+      <a href="#book" class="btn btn-primary">Book now</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="eyebrow">Rental studio</div>
+      <h1>A space for every <span class="spec">color</span> of your work.</h1>
+      <p class="lead">Shoots, podcasts, meetings and workshops. Look around the studio, check what's free and book a slot in under a minute. For anything bigger, send us a quote request and we'll reply the same day.</p>
+      <div class="hero-actions">
+        <a href="#book" class="btn btn-primary">Book a session →</a>
+        <a href="#quote" class="btn btn-ghost">Request a quote</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>120 m²</b>open studio</div>
+        <div><b>4.5 m</b>ceiling height</div>
+        <div><b>7 days</b>a week</div>
+      </div>
+    </div>
+    <div class="hero-visual ph ph-1 reveal" role="img" aria-label="Main studio">
+      <div class="hero-chip">
+        <div><span class="dot"></span><span id="heroAvail">Free slots today</span></div>
+        <a href="#book">See times →</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="space">
+  <div class="wrap">
+    <div class="space-head reveal">
+      <div>
+        <div class="eyebrow">The space</div>
+        <h2>Take a look around</h2>
+        <p class="lead">One bright open studio plus a lounge and meeting room. Tap a photo to view it larger.</p>
+      </div>
+      <a href="#book" class="btn btn-ghost">Check availability</a>
+    </div>
+    <div class="gallery reveal">
+      <div class="ph ph-1 g1" data-label="Main studio, white cyclorama"><span class="ph-label">Main studio</span></div>
+      <div class="ph ph-2" data-label="Color backdrops"><span class="ph-label">Backdrops</span></div>
+      <div class="ph ph-3" data-label="Lounge and green room"><span class="ph-label">Lounge</span></div>
+      <div class="ph ph-4 g4" data-label="Meeting room"><span class="ph-label">Meeting room</span></div>
+      <div class="ph ph-5" data-label="Podcast corner"><span class="ph-label">Podcast corner</span></div>
+      <div class="ph ph-6" data-label="Makeup and changing area"><span class="ph-label">Makeup area</span></div>
+    </div>
+    <div class="specs reveal">
+      <div class="spec-item"><b>Natural light</b>Large windows, blackout curtains</div>
+      <div class="spec-item"><b>Lighting kit</b>Strobes, LED panels, softboxes</div>
+      <div class="spec-item"><b>Fast Wi-Fi</b>Plus a 4K screen for meetings</div>
+      <div class="spec-item"><b>Comfort</b>AC, kitchenette, makeup station</div>
+    </div>
+  </div>
+</section>
+
+<section class="uses" id="uses">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">What it's for</div>
+      <h2>One studio, many uses</h2>
+    </div>
+    <div class="use-grid reveal">
+      <div class="use"><div class="ic" style="background:#efe7fd">📸</div><h3>Photo shoots</h3><p>Fashion, product, portraits and campaigns, against a white cyclorama or color backdrops.</p><a href="#book" data-type="shoot">Book a shoot →</a></div>
+      <div class="use"><div class="ic" style="background:#dff4f5">🎙️</div><h3>Video &amp; podcasts</h3><p>A quiet corner with treated acoustics, mics and lights. Bring your crew, or just yourself.</p><a href="#book" data-type="podcast">Book a recording →</a></div>
+      <div class="use"><div class="ic" style="background:#fff3d6">💼</div><h3>Meetings</h3><p>A private room for clients, pitches and team sessions, with a screen and coffee included.</p><a href="#book" data-type="meeting">Book a meeting →</a></div>
+      <div class="use"><div class="ic" style="background:#fde3e3">🎨</div><h3>Workshops &amp; events</h3><p>Classes, launches and pop-ups for up to 40 guests. We'll put a custom package together for you.</p><a href="#quote">Request a quote →</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center">
+      <div class="eyebrow">Pricing</div>
+      <h2>Simple, by the hour</h2>
+      <p class="lead" style="margin-inline:auto">No hidden fees. Basic lighting and Wi-Fi are included with every booking.</p>
+    </div>
+    <div class="price-grid reveal">
+      <div class="price">
+        <h3>Meeting room</h3>
+        <div class="amt">$25<small> / hour</small></div>
+        <ul><li>Up to 8 people</li><li>4K screen and Wi-Fi</li><li>Coffee and water</li></ul>
+        <a href="#book" class="btn btn-ghost" data-type="meeting">Book meeting room</a>
+      </div>
+      <div class="price pop">
+        <span class="tag">Most booked</span>
+        <h3>Studio session</h3>
+        <div class="amt">$45<small> / hour</small></div>
+        <ul><li>Whole studio, 2-hour minimum</li><li>Cyclorama and backdrops</li><li>Basic lighting kit</li><li>Makeup and changing area</li></ul>
+        <a href="#book" class="btn btn-color" data-type="shoot">Book studio</a>
+      </div>
+      <div class="price">
+        <h3>Full day</h3>
+        <div class="amt">$300<small> / 8 hours</small></div>
+        <ul><li>Best value for productions</li><li>Full lighting kit included</li><li>Lounge for your team</li></ul>
+        <a href="#quote" class="btn btn-ghost">Get a quote</a>
+      </div>
+    </div>
+    <p class="note" style="text-align:center">These are sample prices for the prototype.</p>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section id="book" style="padding-top:40px">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Book</div>
+      <h2>Book in three steps</h2>
+      <p class="lead">Choose what you need, pick a time and confirm. That's it.</p>
+    </div>
+
+    <div class="panel reveal" id="bookPanel">
+      <div class="panel-head">
+        <span class="step-pill on" data-pill="1">1 · What</span>
+        <span class="step-pill" data-pill="2">2 · When</span>
+        <span class="step-pill" data-pill="3">3 · You</span>
+      </div>
+      <div class="panel-body">
+        <div class="step on" data-step="1">
+          <div class="q">What are you booking?</div>
+          <div class="choices" id="bType">
+            <button class="choice" data-v="shoot"><b>📸 Studio session</b><span>$45 / hr · 2 hr min</span></button>
+            <button class="choice" data-v="podcast"><b>🎙️ Podcast / video</b><span>$35 / hr</span></button>
+            <button class="choice" data-v="meeting"><b>💼 Meeting room</b><span>$25 / hr</span></button>
+          </div>
+          <div class="q">How long?</div>
+          <div class="stepper"><button type="button" id="hMinus" aria-label="Fewer hours">−</button><output id="hOut">2 hours</output><button type="button" id="hPlus" aria-label="More hours">+</button></div>
+        </div>
+
+        <div class="step" data-step="2">
+          <div class="q">Pick a day</div>
+          <div class="days" id="days"></div>
+          <div class="q">Start time</div>
+          <div class="chips" id="slots"></div>
+          <p class="note" id="slotNote"></p>
+        </div>
+
+        <div class="step" data-step="3">
+          <div class="fields">
+            <div class="field"><label for="bName">Full name</label><input id="bName" autocomplete="name" placeholder="Your name"></div>
+            <div class="field"><label for="bPhone">Phone / WhatsApp</label><input id="bPhone" autocomplete="tel" inputmode="tel" placeholder="+000 00 000 000"></div>
+            <div class="field full"><label for="bEmail">Email</label><input id="bEmail" type="email" autocomplete="email" placeholder="you@email.com"></div>
+            <div class="field full"><label for="bNote">Anything we should know? (optional)</label><textarea id="bNote" rows="3" placeholder="Number of people, equipment, etc."></textarea></div>
+          </div>
+        </div>
+
+        <div class="step" data-step="4">
+          <div class="done-box">
+            <div class="check">✓</div>
+            <h3>You're booked in!</h3>
+            <p>We've reserved your slot. We'll confirm on WhatsApp within the hour.</p>
+            <div class="recap" id="bRecap"></div>
+            <div class="done-actions">
+              <a class="btn btn-color" id="bWa" target="_blank" rel="noopener">Send on WhatsApp</a>
+              <button class="btn btn-ghost" id="bAgain">Book another</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-foot" id="bFoot">
+        <div class="sum" id="bSum">Choose a service to start</div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost" id="bBack" style="display:none">Back</button>
+          <button class="btn btn-primary" id="bNext" disabled>Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<section id="quote" class="quote-sec">
+  <div class="wrap two-col">
+    <div class="reveal">
+      <div class="eyebrow">Request a quote</div>
+      <h2>Planning something bigger?</h2>
+      <p class="lead">Productions, multi-day shoots, workshops and events. Tell us a little about it and you'll get a tailored quote, usually the same day.</p>
+      <div class="estimate" id="estimate">
+        <small>Live estimate</small>
+        <div class="big" id="estBig">—</div>
+        <small id="estSub">Answer a few questions to see an estimate</small>
+        <ul id="estList"></ul>
+        <div class="bar"></div>
+      </div>
+      <div class="perks">
+        <div>⚡ <span><b>Fast reply.</b> Usually within a few hours.</span></div>
+        <div>🤝 <span><b>No commitment.</b> A quote is free, and you don't have to book.</span></div>
+        <div>🎁 <span><b>Packages.</b> Multi-day and recurring bookings get better rates.</span></div>
+      </div>
+    </div>
+
+    <div class="panel reveal" id="quotePanel">
+      <div class="panel-head">
+        <span class="step-pill on" data-qpill="1">1 · Project</span>
+        <span class="step-pill" data-qpill="2">2 · Details</span>
+        <span class="step-pill" data-qpill="3">3 · Contact</span>
+      </div>
+      <div class="panel-body">
+        <div class="step on" data-qstep="1">
+          <div class="q">What's the project?</div>
+          <div class="choices" id="qType">
+            <button class="choice" data-v="Production"><b>🎬 Production</b><span>Shoot or film</span></button>
+            <button class="choice" data-v="Workshop"><b>🎨 Workshop</b><span>Class or training</span></button>
+            <button class="choice" data-v="Event"><b>🥂 Event</b><span>Launch or pop-up</span></button>
+            <button class="choice" data-v="Recurring"><b>🔁 Recurring</b><span>Weekly or monthly</span></button>
+          </div>
+          <div class="q">How long do you need?</div>
+          <div class="chips" id="qDur">
+            <button class="chip" data-v="half" data-h="4">Half day</button>
+            <button class="chip" data-v="full" data-h="8">Full day</button>
+            <button class="chip" data-v="2days" data-h="16">2 days</button>
+            <button class="chip" data-v="more" data-h="24">3+ days</button>
+          </div>
+        </div>
+
+        <div class="step" data-qstep="2">
+          <div class="q">How many people?</div>
+          <div class="chips" id="qPeople">
+            <button class="chip" data-v="1–5">1–5</button>
+            <button class="chip" data-v="6–15">6–15</button>
+            <button class="chip" data-v="16–40">16–40</button>
+          </div>
+          <div class="q">Extras <span style="font-weight:400;color:var(--ink-mute);font-size:14px">(optional)</span></div>
+          <div class="chips" id="qExtras">
+            <button class="chip" data-v="Pro lighting" data-p="60">Pro lighting</button>
+            <button class="chip" data-v="Photographer" data-p="150">Photographer</button>
+            <button class="chip" data-v="Catering" data-p="120">Catering</button>
+            <button class="chip" data-v="Setup & cleanup" data-p="50">Setup &amp; cleanup</button>
+            <button class="chip" data-v="Props & furniture" data-p="40">Props &amp; furniture</button>
+          </div>
+          <div class="fields" style="margin-top:26px">
+            <div class="field"><label for="qDate">Preferred date</label><input id="qDate" type="date"></div>
+            <div class="field"><label for="qFlex">Flexible?</label><select id="qFlex"><option>Fixed date</option><option>± a few days</option><option>Any time this month</option></select></div>
+          </div>
+        </div>
+
+        <div class="step" data-qstep="3">
+          <div class="fields">
+            <div class="field"><label for="qName">Name</label><input id="qName" autocomplete="name" placeholder="Your name"></div>
+            <div class="field"><label for="qPhone">Phone / WhatsApp</label><input id="qPhone" autocomplete="tel" inputmode="tel" placeholder="+000 00 000 000"></div>
+            <div class="field full"><label for="qEmail">Email</label><input id="qEmail" type="email" autocomplete="email" placeholder="you@email.com"></div>
+            <div class="field full"><label for="qMsg">Tell us about it</label><textarea id="qMsg" rows="4" placeholder="Brand, mood, setup, anything that helps"></textarea></div>
+          </div>
+        </div>
+
+        <div class="step" data-qstep="4">
+          <div class="done-box">
+            <div class="check">✓</div>
+            <h3>Quote request sent</h3>
+            <p>Thanks! We're putting your quote together and will get back to you shortly.</p>
+            <div class="recap" id="qRecap"></div>
+            <div class="done-actions">
+              <a class="btn btn-color" id="qWa" target="_blank" rel="noopener">Also send on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-foot">
+        <button class="btn btn-ghost" id="qBack" style="visibility:hidden">Back</button>
+        <button class="btn btn-primary" id="qNext" disabled>Continue</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center">
+      <div class="eyebrow">FAQ</div>
+      <h2>Good to know</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Can I visit the studio before booking?</summary><p>Of course. Send us a message and we'll set up a free 15-minute walkthrough.</p></details>
+      <details><summary>What's included in the hourly rate?</summary><p>The space, basic lighting, Wi-Fi, the makeup area and access to the lounge. Extras such as pro lighting or catering can be added to a quote.</p></details>
+      <details><summary>How do I pay?</summary><p>A 30% deposit secures your slot and the rest is paid on the day. We accept card, transfer and cash.</p></details>
+      <details><summary>What if I need to cancel or reschedule?</summary><p>You can reschedule for free up to 48 hours before your slot. If you cancel later than that, the deposit is kept.</p></details>
+      <details><summary>Is there parking?</summary><p>Yes, there's free street parking and a paid lot two minutes away.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:20px">
+  <div class="wrap">
+    <div class="contact reveal">
+      <div>
+        <h2>Come create with us</h2>
+        <p class="lead">Questions, collabs or a quick visit: we're one message away.</p>
+        <div class="hero-actions">
+          <a href="#book" class="btn btn-color">Book a session</a>
+          <a href="#quote" class="btn" style="background:rgba(255,255,255,.1);color:#fff">Request a quote</a>
+        </div>
+        <div class="map">Map goes here</div>
+      </div>
+      <div class="contact-list">
+        <a href="https://instagram.com/" target="_blank" rel="noopener">📷 <div><span>Instagram</span>@chroma28.studio</div></a>
+        <a href="#" id="waLink" target="_blank" rel="noopener">💬 <div><span>WhatsApp</span>Message us</div></a>
+        <a href="mailto:hello@example.com">✉️ <div><span>Email</span>hello@chroma28.studio</div></a>
+        <div>📍 <div><span>Address</span>Street, City</div></div>
+        <div>🕘 <div><span>Hours</span>Every day, 9:00–22:00</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> Chroma28 Studio</span>
+    <span>Rental studio · Shoots · Meetings · Workshops</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a href="#quote" class="btn btn-ghost">Get a quote</a>
+  <a href="#book" class="btn btn-primary">Book now</a>
+</div>
+
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo">
+  <button aria-label="Close" id="lbClose">×</button>
+  <div class="ph" id="lbImg"><span class="ph-label" id="lbLabel"></span></div>
+</div>
+
+<script>
+/* ---------- config: swap in the studio's real details ---------- */
+const WHATSAPP = ""; // e.g. "96170123456" (digits only). Leave empty to open WhatsApp's share sheet.
+const RATES = { shoot: 45, podcast: 35, meeting: 25 };
+const NAMES = { shoot: "Studio session", podcast: "Podcast / video", meeting: "Meeting room" };
+const MIN_H = { shoot: 2, podcast: 1, meeting: 1 };
+const OPEN = 9, CLOSE = 22;
+
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const waUrl = text => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
+$("#yr").textContent = new Date().getFullYear();
+$("#waLink").href = waUrl("Hi Chroma28! I have a question about the studio.");
+
+/* nav border + reveal */
+addEventListener("scroll", () => $("#nav").classList.toggle("scrolled", scrollY > 8), { passive: true });
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+$$(".reveal").forEach(el => io.observe(el));
+
+/* lightbox */
+$$(".gallery .ph").forEach(t => t.addEventListener("click", () => {
+  $("#lbImg").className = "ph " + [...t.classList].find(c => /^ph-\d/.test(c));
+  $("#lbLabel").textContent = t.dataset.label;
+  $("#lb").classList.add("open");
+}));
+const closeLb = () => $("#lb").classList.remove("open");
+$("#lbClose").onclick = closeLb;
+$("#lb").onclick = e => { if (e.target.id === "lb") closeLb(); };
+addEventListener("keydown", e => { if (e.key === "Escape") closeLb(); });
+
+/* ---------- booking ---------- */
+const B = { step: 1, type: null, hours: 2, day: null, time: null };
+const fmtDay = d => d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+const pad = n => String(n).padStart(2, "0");
+
+// deterministic fake "already booked" hours so the demo looks real
+function taken(date) {
+  const seed = date.getDate() * 7 + date.getMonth() * 3;
+  const out = new Set();
+  [seed % 5, (seed * 3) % 7 + 3, (seed * 5) % 4 + 8].forEach(o => { out.add(OPEN + o); out.add(OPEN + o + 1); });
+  return out;
+}
+function freeStarts(date, hours) {
+  const t = taken(date), now = new Date(), res = [];
+  for (let h = OPEN; h + hours <= CLOSE; h++) {
+    let ok = true;
+    for (let k = h; k < h + hours; k++) if (t.has(k)) ok = false;
+    const isPast = date.toDateString() === now.toDateString() && h <= now.getHours();
+    res.push({ h, ok: ok && !isPast });
+  }
+  return res;
+}
+const today = new Date(); today.setHours(0, 0, 0, 0);
+const DAYS = Array.from({ length: 14 }, (_, i) => { const d = new Date(today); d.setDate(d.getDate() + i); return d; });
+const freeToday = freeStarts(today, 1).filter(s => s.ok).length;
+$("#heroAvail").textContent = freeToday ? `${freeToday} free slots today` : "Free slots tomorrow";
+
+function renderDays() {
+  $("#days").innerHTML = DAYS.map((d, i) =>
+    `<button class="day ${B.day === i ? "on" : ""}" data-i="${i}"><small>${i === 0 ? "Today" : d.toLocaleDateString(undefined, { weekday: "short" })}</small><b>${d.getDate()}</b></button>`).join("");
+  $$("#days .day").forEach(b => b.onclick = () => { B.day = +b.dataset.i; B.time = null; renderDays(); renderSlots(); syncB(); });
+}
+function renderSlots() {
+  if (B.day == null) { $("#slots").innerHTML = ""; $("#slotNote").textContent = "Pick a day to see free times."; return; }
+  const s = freeStarts(DAYS[B.day], B.hours);
+  $("#slots").innerHTML = s.map(x => `<button class="chip ${B.time === x.h ? "on" : ""}" data-h="${x.h}" ${x.ok ? "" : "disabled"}>${pad(x.h)}:00</button>`).join("");
+  const free = s.filter(x => x.ok).length;
+  $("#slotNote").textContent = free ? `${free} start times available for ${B.hours}h.` : "Fully booked for this length. Try another day or a shorter session.";
+  $$("#slots .chip:not([disabled])").forEach(b => b.onclick = () => { B.time = +b.dataset.h; renderSlots(); syncB(); });
+}
+function setType(v) {
+  B.type = v;
+  B.hours = Math.max(B.hours, MIN_H[v]);
+  $$("#bType .choice").forEach(c => c.classList.toggle("on", c.dataset.v === v));
+  B.time = null; renderSlots(); syncB();
+}
+$$("#bType .choice").forEach(c => c.onclick = () => setType(c.dataset.v));
+$$("[data-type]").forEach(a => a.addEventListener("click", () => { setType(a.dataset.type); goB(1); }));
+$("#hMinus").onclick = () => { B.hours = Math.max(MIN_H[B.type] || 1, B.hours - 1); B.time = null; renderSlots(); syncB(); };
+$("#hPlus").onclick = () => { B.hours = Math.min(10, B.hours + 1); B.time = null; renderSlots(); syncB(); };
+
+const contactOk = p => $(`#${p}Name`).value.trim() && ($(`#${p}Phone`).value.trim().length > 5 || /\S+@\S+\.\S+/.test($(`#${p}Email`).value));
+function bValid() {
+  if (B.step === 1) return !!B.type;
+  if (B.step === 2) return B.day != null && B.time != null;
+  if (B.step === 3) return contactOk("b");
+  return true;
+}
+function syncB() {
+  $("#hOut").textContent = `${B.hours} hour${B.hours > 1 ? "s" : ""}`;
+  const parts = [];
+  if (B.type) parts.push(NAMES[B.type]);
+  if (B.day != null && B.time != null) parts.push(`${fmtDay(DAYS[B.day])}, ${pad(B.time)}:00–${pad(B.time + B.hours)}:00`);
+  const total = B.type ? RATES[B.type] * B.hours : 0;
+  $("#bSum").innerHTML = B.type ? `${parts.join(" · ")}<br><b>$${total}</b> total` : "Choose a service to start";
+  $("#bNext").disabled = !bValid();
+  $("#bNext").textContent = B.step === 3 ? `Confirm booking · $${total}` : "Continue";
+  $("#bBack").style.display = B.step > 1 && B.step < 4 ? "" : "none";
+  $("#bFoot").style.display = B.step === 4 ? "none" : "";
+  $$("[data-pill]").forEach(p => { const n = +p.dataset.pill; p.className = "step-pill " + (n === B.step ? "on" : n < B.step ? "done" : ""); });
+}
+function goB(n) {
+  B.step = n;
+  $$("[data-step]").forEach(s => s.classList.toggle("on", +s.dataset.step === n));
+  if (n === 2) { renderDays(); renderSlots(); }
+  if (n === 4) {
+    const when = `${fmtDay(DAYS[B.day])}, ${pad(B.time)}:00–${pad(B.time + B.hours)}:00`;
+    const total = RATES[B.type] * B.hours;
+    $("#bRecap").innerHTML = [["Service", NAMES[B.type]], ["When", when], ["Name", $("#bName").value], ["Total", `$${total}`]]
+      .map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join("");
+    $("#bWa").href = waUrl(`Hi Chroma28! I'd like to book:\n• ${NAMES[B.type]}\n• ${when}\n• ${B.hours}h, $${total}\nName: ${$("#bName").value}\nPhone: ${$("#bPhone").value}\n${$("#bNote").value}`);
+  }
+  syncB();
+}
+$("#bNext").onclick = () => bValid() && goB(B.step + 1);
+$("#bBack").onclick = () => goB(B.step - 1);
+$("#bAgain").onclick = () => { Object.assign(B, { type: null, hours: 2, day: null, time: null }); $$("#bType .choice").forEach(c => c.classList.remove("on")); goB(1); };
+["bName", "bPhone", "bEmail"].forEach(id => $("#" + id).addEventListener("input", syncB));
+syncB();
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+/* ---------- quote ---------- */
+const Q = { step: 1, type: null, dur: null, hours: 0, people: null, extras: new Set() };
+const DAY_RATE = 300, HALF = 170;
+const pick = (sel, key, cb) => $$(sel + " .chip, " + sel + " .choice").forEach(b => b.onclick = () => {
+  $$(sel + " .chip, " + sel + " .choice").forEach(x => x.classList.toggle("on", x === b));
+  Q[key] = b.dataset.v; cb && cb(b); syncQ();
+});
+pick("#qType", "type");
+pick("#qDur", "dur", b => Q.hours = +b.dataset.h);
+pick("#qPeople", "people");
+$$("#qExtras .chip").forEach(b => b.onclick = () => { b.classList.toggle("on"); Q.extras.has(b.dataset.v) ? Q.extras.delete(b.dataset.v) : Q.extras.add(b.dataset.v); syncQ(); });
+const minDate = new Date(); $("#qDate").min = minDate.toISOString().slice(0, 10);
+
+function estimate() {
+  if (!Q.dur) return null;
+  const days = Q.hours / 8;
+  let base = Q.dur === "half" ? HALF : DAY_RATE * days;
+  if (Q.type === "Recurring") base *= .85;
+  const lines = [["Studio", base]];
+  if (Q.people === "16–40") lines.push(["Large group", 80 * Math.max(1, days)]);
+  $$("#qExtras .chip.on").forEach(b => lines.push([b.dataset.v, +b.dataset.p * Math.max(1, Math.ceil(days))]));
+  const total = lines.reduce((s, l) => s + l[1], 0);
+  return { lines, lo: Math.round(total * .9 / 10) * 10, hi: Math.round(total * 1.15 / 10) * 10 };
+}
+function qValid() {
+  if (Q.step === 1) return Q.type && Q.dur;
+  if (Q.step === 2) return !!Q.people;
+  if (Q.step === 3) return contactOk("q");
+  return true;
+}
+function syncQ() {
+  const e = estimate();
+  if (e) {
+    $("#estBig").textContent = `$${e.lo} – $${e.hi}`;
+    $("#estSub").textContent = `${Q.type || "Project"} · ${$("#qDur .chip.on")?.textContent || ""}${Q.type === "Recurring" ? " · 15% recurring discount" : ""}`;
+    $("#estList").innerHTML = e.lines.map(([k, v]) => `<li><span>${k}</span><span>$${Math.round(v)}</span></li>`).join("");
+  }
+  $("#qNext").disabled = !qValid();
+  $("#qNext").textContent = Q.step === 3 ? "Send quote request" : "Continue";
+  $("#qBack").style.visibility = Q.step > 1 && Q.step < 4 ? "visible" : "hidden";
+  $("#qNext").parentElement.style.display = Q.step === 4 ? "none" : "";
+  $$("[data-qpill]").forEach(p => { const n = +p.dataset.qpill; p.className = "step-pill " + (n === Q.step ? "on" : n < Q.step ? "done" : ""); });
+}
+function goQ(n) {
+  Q.step = n;
+  $$("[data-qstep]").forEach(s => s.classList.toggle("on", +s.dataset.qstep === n));
+  if (n === 4) {
+    const e = estimate(), extras = [...Q.extras].join(", ") || "None";
+    const date = $("#qDate").value || "Flexible";
+    $("#qRecap").innerHTML = [["Project", Q.type], ["Length", $("#qDur .chip.on").textContent], ["People", Q.people], ["Extras", extras], ["Date", date], ["Estimate", `$${e.lo} – $${e.hi}`]]
+      .map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join("");
+    $("#qWa").href = waUrl(`Hi Chroma28! Quote request:\n• ${Q.type}, ${$("#qDur .chip.on").textContent}\n• ${Q.people} people\n• Extras: ${extras}\n• Date: ${date} (${$("#qFlex").value})\nName: ${$("#qName").value}\nPhone: ${$("#qPhone").value}\n${$("#qMsg").value}`);
+  }
+  syncQ();
+}
+$("#qNext").onclick = () => qValid() && goQ(Q.step + 1);
+$("#qBack").onclick = () => goQ(Q.step - 1);
+["qName", "qPhone", "qEmail"].forEach(id => $("#" + id).addEventListener("input", syncQ));
+syncQ();
+</script>
+</body>
+</html>
